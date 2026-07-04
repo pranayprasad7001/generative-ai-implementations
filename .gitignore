@@ -1,1 +1,50 @@
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Environment Variables
 .env
+.env.*
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# IDEs
+.vscode/
+.idea/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Type Checking & Linting
+.mypy_cache/
+.pyre/
+.ruff_cache/
+
+# Build & Packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Miscellaneous Cache
+.cache/
