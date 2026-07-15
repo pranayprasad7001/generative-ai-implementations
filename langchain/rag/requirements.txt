@@ -23,3 +23,5 @@ fastapi
 uvicorn
 langserve
 sse-starlette
+langchain_classic
+huggingface_hub
