@@ -17,3 +17,4 @@ langgraph
 wikipedia
 arxiv
 duckduckgo-search
+langchain_tavily
