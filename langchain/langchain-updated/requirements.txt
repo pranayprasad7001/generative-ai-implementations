@@ -18,3 +18,5 @@ wikipedia
 arxiv
 duckduckgo-search
 langchain_tavily
+langgraph-cli
+langgraph-api
