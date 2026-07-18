@@ -20,3 +20,5 @@ duckduckgo-search
 langchain_tavily
 langgraph-cli
 langgraph-api
+langchain-mcp-adapters
+mcp
