@@ -25,3 +25,4 @@ langserve
 sse-starlette
 langchain_classic
 huggingface_hub
+langchain_nvidia_ai_endpoints
