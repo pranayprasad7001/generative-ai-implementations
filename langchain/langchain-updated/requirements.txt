@@ -22,3 +22,6 @@ langgraph-cli
 langgraph-api
 langchain-mcp-adapters
 mcp
+langchain-pinecone
+pinecone
+pinecone-text
