@@ -52,3 +52,7 @@ pip-wheel-metadata/
 # langgraph dev 
 .langgraph-server/
 .langgraph_api/
+
+# vectorstore persistance
+chroma_db/
+faiss_index/
