@@ -25,3 +25,4 @@ mcp
 langchain-pinecone
 pinecone
 pinecone-text
+langchain_neo4j
