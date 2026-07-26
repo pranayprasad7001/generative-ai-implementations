@@ -26,3 +26,5 @@ langchain-pinecone
 pinecone
 pinecone-text
 langchain_neo4j
+deepagents
+tavily-python
