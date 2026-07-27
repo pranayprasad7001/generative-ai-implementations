@@ -29,3 +29,4 @@ langchain_neo4j
 deepagents
 tavily-python
 langchain_quickjs
+bs4
