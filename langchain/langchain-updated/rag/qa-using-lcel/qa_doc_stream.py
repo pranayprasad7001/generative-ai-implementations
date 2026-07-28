@@ -28,7 +28,7 @@ vectorstore = Chroma.from_documents(
 )
 retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
-# Initialize the primary LLM
+# Initialize the primary LLM (streaming is enabled by default in ChatOpenAI)
 llm = ChatOpenAI(model="gpt-4o", temperature=0)
 
 # Configure the message trimmer
@@ -40,7 +40,7 @@ trimmer = trim_messages(
     include_system=True
 )
 
-# Step A: Contextualize the prompt
+# Step A: Contextualize Prompt
 contextualize_q_system_prompt = (
     "Given a chat history and the latest user question "
     "which might reference context in the chat history, "
@@ -55,10 +55,9 @@ contextualize_q_prompt = ChatPromptTemplate.from_messages([
     ("human", "{input}"),
 ])
 
-# Sub-chain to resolve ambiguous follow-up questions
 contextualize_q_chain = contextualize_q_prompt | llm | StrOutputParser()
 
-# Step B: Main Question-Answering Prompt
+# Step B: Main QA Prompt
 qa_system_prompt = (
     "You are an assistant for question-answering tasks. "
     "Use the following pieces of retrieved context to answer "
@@ -73,16 +72,11 @@ qa_prompt = ChatPromptTemplate.from_messages([
     ("human", "{input}"),
 ])
 
-# Helper function to format retrieved chunks
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
-# Step C: The Composite Contextual Retrieval Logic
+# Step C: Contextual Retrieval Logic
 def contextualized_retrieval(input_dict):
-    """
-    Safely checks chat history, applies message trimming,
-    and returns either a rewritten query string or the raw input.
-    """
     history = input_dict.get("chat_history", [])
     if history:
         trimmed_history = trimmer.invoke(history)
@@ -101,7 +95,7 @@ rag_chain = (
     | llm
 )
 
-# Session dictionary for in-memory history persistence
+# Session store for memory persistence
 session_store = {}
 
 def get_session_history(session_id: str) -> InMemoryChatMessageHistory:
@@ -109,7 +103,7 @@ def get_session_history(session_id: str) -> InMemoryChatMessageHistory:
         session_store[session_id] = InMemoryChatMessageHistory()
     return session_store[session_id]
 
-# Wrap core RAG chain with session capabilities
+# Wrap core RAG chain with session capability
 conversational_rag_chain = RunnableWithMessageHistory(
     rag_chain,
     get_session_history,
@@ -117,20 +111,24 @@ conversational_rag_chain = RunnableWithMessageHistory(
     history_messages_key="chat_history",
 )
 
-# Example execution
+# Function to run queries with streaming output
+def ask_question_stream(query: str, session_id: str):
+    config = {"configurable": {"session_id": session_id}}
+    print(f"User: {query}")
+    print("Bot: ", end="", flush=True)
+
+    # Use .stream() instead of .invoke()
+    for chunk in conversational_rag_chain.stream({"input": query}, config=config):
+        if chunk.content:
+            print(chunk.content, end="", flush=True)
+    print("\n" + "-" * 50)
+
+# Execution
 if __name__ == "__main__":
-    config = {"configurable": {"session_id": "user_session_abc123"}}
+    session_id = "user_session_abc123"
 
-    # Session Turn 1
-    response1 = conversational_rag_chain.invoke(
-        {"input": "What are the company's rules on remote work?"},
-        config=config
-    )
-    print("Bot Turn 1:", response1.content)
+    # Turn 1
+    ask_question_stream("What are the company's rules on remote work?", session_id)
 
-    # Session Turn 2
-    response2 = conversational_rag_chain.invoke(
-        {"input": "Does this change during the summer months?"}, 
-        config=config
-    )
-    print("Bot Turn 2:", response2.content)
+    # Turn 2
+    ask_question_stream("Does this change during the summer months?", session_id)
