@@ -30,3 +30,11 @@ deepagents
 tavily-python
 langchain_quickjs
 bs4
+python-docx
+docx2txt
+pypdf
+pymupdf
+tiktoken
+unstructured[docx]
+openpyxl
+jq
