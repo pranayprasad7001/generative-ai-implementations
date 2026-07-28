@@ -38,3 +38,5 @@ tiktoken
 unstructured[docx]
 openpyxl
 jq
+matplotlib
+langchain_astradb
