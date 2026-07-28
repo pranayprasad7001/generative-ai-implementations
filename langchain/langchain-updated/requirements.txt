@@ -40,3 +40,4 @@ openpyxl
 jq
 matplotlib
 langchain_astradb
+langchain-experimental
