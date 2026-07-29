@@ -41,3 +41,4 @@ jq
 matplotlib
 langchain_astradb
 langchain-experimental
+rank_bm25
