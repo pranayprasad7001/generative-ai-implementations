@@ -1,0 +1,12 @@
+1. Reciprocal Rank Fusion (RRF): 
+Merges search results from different retrieval methods (like keyword search and vector search) into a single ordered list based on their ranking positions rather than raw scores.
+
+2. LLM Reranking / Cross-Encoder Reranking: 
+Re-evaluates top retrieved document chunks using a powerful model to score true relevance and put the absolute best chunks right at the top.
+
+3. Maximal Marginal Relevance (MMR): 
+Removes redundant or repetitive chunks from the search results to ensure the LLM receives diverse, non-repetitive information.
+
+4. Weighted Linear Vector Fusion: Combines keyword search scores and vector similarity scores into one single score using an $\alpha$ weight knob to adjust how much the search relies on exact keyword matching versus semantic meaning.
+
+contrast : RRF fuses by rank, weighted linear fusion fuses by scaled score, MMR re-selects from an already-scored list to trade off relevance against redundancy, and reranking replaces the similarity score entirely with a more expensive model's judgment.
