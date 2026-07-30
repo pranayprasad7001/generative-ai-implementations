@@ -37,6 +37,7 @@ dependencies = [
     "langgraph-cli>=0.4.31",
     "langserve>=0.3.3",
     "langsmith>=0.9.7",
+    "llama-index>=0.14.23",
     "matplotlib>=3.11.1",
     "mcp>=1.28.1",
     "neo4j>=6.2.0",
