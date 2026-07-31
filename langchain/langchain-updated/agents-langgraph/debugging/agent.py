@@ -1,3 +1,6 @@
+# To run the file in langgraph studio environment, define langgraph.json file with necessary info
+# and run the following command in terminal/command-prompt: langgraph dev
+
 import os
 from dotenv import load_dotenv
 
