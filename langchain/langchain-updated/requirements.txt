@@ -43,3 +43,4 @@ langchain_astradb
 langchain-experimental
 rank_bm25
 llama_index
+pageindex
