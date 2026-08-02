@@ -44,3 +44,5 @@ langchain-experimental
 rank_bm25
 llama_index
 pageindex
+litellm
+langchain-litellm
